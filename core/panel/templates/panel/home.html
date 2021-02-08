@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+
+{% block content %}
+
+<div class="row mt-5 p-4">
+    <div class="col-10">
+        <h2 class="isoct font-weight-bold">DATES</h2>
+    </div>
+    <div class="col-8">
+        {% for date in dates %}
+        <h3 class="" id="date">{{ date.date_purchase }}</h3>
+        <table class="table mb-5">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+<!--                    <button type="button" class="pb-0 text-left btn btn-dark btn-block">Name</button>-->
+                    <th class="col-7"><a href="{% url 'panel:sorter' %}">Name</a></th>
+                    <th class="col-1">Size</th>
+                    <th class="col-1">Type</th>
+                    <th class="col-1">Cost</th>
+                    <th class="col-1">Discount</th>
+                    <th class="col-1">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in date.products.all %}
+                <tr>
+                    <td>{{ product.id}}</td>
+                    <td>{{ product.name|title }}</td>
+                    <td>{{ product.size }}</td>
+                    <td>{{ product.type|lower }}</td>
+                    <td>{{ product.cost }}</td>
+                    <td>{{ product.discount }}</td>
+                    <td>{{ product.cost|sub:product.discount }} </td>
+                </tr>
+                {% endfor %}
+                <tr class="table-secondary">
+                    <th></th>
+                    <th >Total for the day</th>
+                    <th></th>
+                    <th></th>
+                    <th>{{ date.products.all|sum_costs|index:0 }}</th>
+                    <th>{{ date.products.all|sum_costs|index:1 }}</th>
+                    <th>{{ date.products.all|sum_costs|index:2  }}</th>
+                </tr>
+            </tbody>
+        </table>
+        {% endfor %}
+    </div>
+    <div class="col-4">
+        <h3 class="">Sort by</h3>
+        <ul class="list-group rounded-0">
+            <li class="list-group-item bg-dark text-white">Date</li>
+            <li class="list-group-item">Highest costs</li>
+            <li class="list-group-item">Highest discounts </li>
+            <li class="list-group-item">Highest costs with discounts</li>
+            <li class="list-group-item">Lowest costs</li>
+            <li class="list-group-item">Lowest discounts</li>
+            <li class="list-group-item">Lowest costs with discounts</li>
+            <li class="list-group-item">Most purchases </li>
+            <li class="list-group-item">Lowest costs</li>
+        </ul>
+    </div>
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'ISOCT';
+    src: url('../base/ISOCT.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AzoteW00';
+    src: url('../base/AzoteW00-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.isoct {
+    font-family: 'ISOCT';
+    font-weight: normal;
+    font-style: normal;
+}
+
+.azote {
+    font-family: 'AzoteW00';
+    font-weight: normal;
+    font-style: normal;
+    src: url('AzoteW00-Regular.ttf') format('truetype');
+}
+
+.rect {
+    font-family: 'rect';
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-shadow{
+	text-shadow:6px 6px 9px #000;
+}
+
+.mh-29{
+    max-height:290px;
+}
+
+.mb-30{
+    margin-bottom:300px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #343a40;
+}
+
+.nav-pills .nav-link,
+.nav-pills > .nav-link {
+  color: #343a40;
+}

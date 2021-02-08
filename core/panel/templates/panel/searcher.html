@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block carousel %}
+{% endblock %}
+
+{% block content %}
+<div class="container rect">
+  <div class="py-5 text-center">
+    <h2>Search form</h2>
+    <p class="lead">Searching form by requirements to choose the best university for you</p>
+    <p>Please try to fill all fields and checkboxes</p>
+  </div>
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">Choose your requirements</h4>
+      <form class="needs-validation" method="get" action="{% url 'university:searcher-res' %}">
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <label for="degree">Degree</label>
+            <select class="custom-select d-block w-100" id="degree" name="degree">
+                <option value="">Choose...</option>
+                <option value="bachelor">Bachelor</option>
+                <option value="master">Master's degree</option>
+                <option value="high">high school</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid degree.
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="faculty">Faculty</label>
+            <select class="custom-select d-block w-100" id="faculty" name="faculty">
+              <option value="">Choose...</option>
+              <option>Computer science</option>
+            </select>
+            <div class="invalid-feedback">
+              Please provide a valid faculty.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="language">Language</label>
+            <select class="custom-select d-block w-100" id="language" name="language">
+              <option value="">Choose...</option>
+                <option>Kyrgyz</option>
+                <option>Russian</option>
+                <option>English</option>
+                <option>Turkish</option>
+            </select>
+            <div class="invalid-feedback">
+              Please provide a valid language.
+            </div>
+          </div>
+        </div>
+        <div class="form-check">
+            <div class="accordion" id="accordion">
+                <div id="headingOne">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="basis" id="budget" value="budget"
+                               data-toggle="collapse" data-target="#co" aria-expanded="true" aria-controls="co" checked>
+                        <label class="form-check-label" for="budget">Budget</label>
+                    </div>
+                </div>
+                <div id="co" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion"></div>
+
+                <div id="headingTwo">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="basis" id="contract" value="contract"
+                               data-toggle="collapse" data-target="#ct" aria-expanded="false" aria-controls="ct">
+                        <label class="form-check-label" for="contract">Contract</label>
+                    </div>
+                </div>
+                <div id="ct" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="mt-3">
+                        <label for="fee_range">Fee</label>
+                        <div class="d-flex">
+                          <div class="w-100">
+                            <input type="range" name="fee" value="0" class="custom-range" id="fee_range" min="0"
+                                   max="8000" step="10">
+                          </div>
+                          <span class="font-weight-bold text-primary ml-2 valueSpan2"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <hr class="mb-4">
+        <small class="text-muted">Most universities provide financial support and scholarships </small>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="aid" name="aid" value="True">
+          <label class="custom-control-label" for="aid">FinanceAid</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="scholarship" name="scholarship" value="True">
+          <label class="custom-control-label" for="scholarship">Scholarship</label>
+        </div>
+        <hr class="mb-4">
+
+        <button class="btn btn-dark btn-lg btn-block" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+  const $valueSpan = $('.valueSpan2');
+  const $value = $('#fee_range');
+  $valueSpan.html($value.val());
+  $value.on('input change', () => {
+
+    $valueSpan.html($value.val());
+  });
+});
+</script>
+{% endblock %}

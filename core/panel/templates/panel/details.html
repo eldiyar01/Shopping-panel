@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block carousel %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5 mb-4 ">
+        <div class="col-12">
+        <div class="card bg-dark text-white  border-secondary shadow-lg">
+            <img src="{{ university.images.first.image.url }}" height="600px" class="card-img" alt="...">
+            <div class="card-img-overlay">
+                <h1 class="card-title isoct font-weight-bold font-shadow">{{ university.title }}</h1>
+                <h4 class="card-text azote font-weight-bolder font-shadow">{{ university.headnote }}</h4>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="col-12 mb-4 shadow p-3 bg-white rounded">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="pills-ds-tab" data-toggle="pill" href="#pills-ds" role="tab"
+                   aria-controls="pills-ds" aria-selected="true">
+                    Description
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="pills-dg-tab" data-toggle="pill" href="#pills-dg" role="tab"
+                   aria-controls="pills-dg" aria-selected="false">
+                    Degrees
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="pills-fc-tab" data-toggle="pill" href="#pills-fc" role="tab"
+                   aria-controls="pills-fc" aria-selected="false">
+                    Faculties
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="pills-ai-tab" data-toggle="pill" href="#pills-ai" role="tab"
+                   aria-controls="pills-ai" aria-selected="false">
+                    Finance aid
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="pills-sc-tab" data-toggle="pill" href="#pills-sc" role="tab"
+                   aria-controls="pills-fq" aria-selected="false">
+                    Scholarship
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="pills-fq-tab" data-toggle="pill" href="#pills-fq" role="tab"
+                   aria-controls="pills-fq" aria-selected="false">
+                    FAQ
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <div class="tab-content rect" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-ds" role="tabpanel" aria-labelledby="pills-ds-tab">
+                <h2>{{ university.title }}</h2>
+                <p>{{ university.description }}</p>
+            </div>
+
+            <div class="tab-pane fade" id="pills-dg" role="tabpanel" aria-labelledby="pills-dg-tab">
+                <div class="accordion" id="accordion">
+                {% for degree in university.degrees.all %}
+                <div class="card">
+                    <div class="card-header" id="hd{{ degree.id }}">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left text-dark" type="button" data-toggle="collapse"
+                            data-target="#cl{{ degree.id }}" aria-expanded="true" aria-controls="cl{{ degree.id }}">
+                            {{ degree.qualifications }}
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="cl{{ degree.id }}" class="collapse"
+                         aria-labelledby="hd{{ degree.id }}" data-parent="#accordion">
+                        <div class="card-body">
+                        {{ degree.information }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-fc" role="tabpanel" aria-labelledby="pills-fc-tab">
+            {% for degree in university.degrees.all %}
+                {% for faculty in degree.faculties.all %}
+                    <div class="card">
+                        <div class="card-header" id="hd{{ faculty.id }}">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left text-dark" type="button" data-toggle="collapse"
+                                data-target="#cl{{ faculty.id }}" aria-expanded="true" aria-controls="cl{{ faculty.id }}">
+                                    {{ faculty.title }}
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="cl{{ faculty.id }}" class="collapse"
+                             aria-labelledby="hd{{ faculty.id }}" data-parent="#accordion">
+                            <div class="card-body">
+                                <span class="font-weight-bold">Degree: </span>{{ faculty.degree.qualifications }}
+                                <hr>
+                                <span class="font-weight-bold">Language: </span>{{ faculty.get_language_display }}
+                                <hr>
+                                <span class="font-weight-bold">Duration: </span>{{ faculty.duration }} years
+                                <hr>
+                                <span class="font-weight-bold">Fee: </span>{{ faculty.fee }}$
+                                <hr>
+                                <span class="font-weight-bold">Aid: </span>{{ faculty.aid }}
+                                <hr>
+                                <span class="font-weight-bold">Scholarship: </span>{{ faculty.scholarship }}
+                                <hr>
+                                <span class="font-weight-bold">Description: </span>
+                                <p> {{ faculty.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            {% endfor %}
+            </div>
+
+
+            <div class="tab-pane fade" id="pills-ai" role="tabpanel" aria-labelledby="pills-ai-tab">
+                <h2>{{ university.aid.first.title }}</h2>
+                {{ university.aid.first.description }}
+            </div>
+            
+            <div class="tab-pane fade" id="pills-sc" role="tabpanel" aria-labelledby="pills-sc-tab">
+                <h2>{{ university.scholarship.first.title }}</h2>
+                {{ university.scholarship.first.description }}
+            </div>
+
+            <div class="tab-pane fade" id="pills-fq" role="tabpanel" aria-labelledby="pills-fq-tab">
+                <h2>{{ university.faq.first.title }}</h2>
+                {{ university.faq.first.description }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

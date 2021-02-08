@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block carousel %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row p-3 mt-4 mb-5">
+            {% if search_req %}
+                <div class="col-12 shadow p-3 mb-5">
+                    <h3 class="rect"><strong>Results for:</strong> '{{ search_req }}'</h3>
+            {% elif search_req != None %}
+                    <h3>Nothing founded for '{{ search_req }}'</h3>
+                </div>
+            {% endif %}
+            {% if search_univ %}
+            {% for university in search_univ %}
+                <div class="col-4 mb-4">
+                    <div class="card shadow">
+                        <img src="{{ university.images.first.image.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ university.title }}</h5>
+                            <p class="card-text">{{ university.headnote|slice:":50" }}</p>
+                            <a href="{{ university.get_absolute_url }}" role="button" class="btn btn-outline-primary">Read</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% if searcher_req %}
+            <div class="col-12 shadow p-3 mb-5">
+            <h3 class="rect"><strong>Results for:</strong></h3>
+                <hr>
+                <h5>
+                {% for x,y in searcher_req.items %}
+                    <span class="font-weight-bold rect">{{x.title}}:</span>
+                    {% if y != '' %}
+                        {{y}},
+                    {% else %}
+                        any,
+                    {% endif %}
+                {% endfor %}
+                </h5>
+            </div>
+            {% elif searcher_req != None %}
+            <h3 class="col-12 shadow p-3 mt-4 mb-5">Nothing founded for '{{ searcher_req }}'</h3>
+        {% endif %}
+        {% if searcher_res %}
+        {% for res in searcher_res %}
+            <div class="col-4 mb-4">
+                <div class="card shadow">
+                    <img src="{{ res.university.images.first.image.url }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ res.university.title }}</h5>
+                        <p class="card-text">{{ res.university.headnote|slice:":50" }}</p>
+                        <a href="{{ res.university.get_absolute_url }}" role="button" class="btn btn-outline-primary">Read</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
+{% endblock %}
